@@ -5,6 +5,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
@@ -50,10 +51,10 @@ fun TodoDetailsDialog(
                     horizontalArrangement = Arrangement.End
                 ) {
                     TextButton(onClick = onDelete) {
-                        Text("Delete")
+                        Text("Delete", color = Color.Red)
                     }
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(16.dp))
 
                     TextButton(onClick = onDismiss) {
                         Text("Cancel")
@@ -81,7 +82,6 @@ fun CreateTaskDialog(
     onDismiss: () -> Unit,
     onSave: (title: String, description: String) -> Unit
 ) {
-    // These states hold the text for the new task
     var newLabel by remember { mutableStateOf("") }
     var newDescription by remember { mutableStateOf("") }
 
@@ -96,7 +96,6 @@ fun CreateTaskDialog(
                 modifier = Modifier.padding(24.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // New Task Title
                 OutlinedTextField(
                     value = newLabel,
                     onValueChange = { newLabel = it },
@@ -105,7 +104,6 @@ fun CreateTaskDialog(
                     isError = newLabel.isBlank() // Show error if title is empty
                 )
 
-                // New Task Description
                 OutlinedTextField(
                     value = newDescription,
                     onValueChange = { newDescription = it },
@@ -115,25 +113,21 @@ fun CreateTaskDialog(
                         .heightIn(min = 120.dp)
                 )
 
-                // Action Buttons
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    // Cancel Button
                     TextButton(onClick = onDismiss) {
                         Text("Cancel")
                     }
 
                     Spacer(modifier = Modifier.width(8.dp))
 
-                    // Save Button
                     Button(
                         onClick = { onSave(newLabel, newDescription) },
-                        // Only enable saving if the title is not empty
                         enabled = newLabel.isNotBlank()
                     ) {
-                        Text("Save")
+                        Text("Create")
                     }
                 }
             }
